@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="userLogin" namespace="/userLogin" extends="struts-default">
+
+        <action name="login" class="loginAction" method="login">
+            <result name="success" type="chain">
+                <param name="actionName">userList</param>
+                <param name="namespace">/user</param>
+                <param name="method">userList</param>
+            </result>
+            <result name="fail">/WEB-INF/jsp/login.jsp</result>
+        </action>
+    </package>
+
+    <package name="user" namespace="/user" extends="struts-default">
+        <interceptors>
+            <interceptor name="userInterceptor" class="interceptor.UserInterceptor"></interceptor>
+            <interceptor-stack name="selfStack">
+                <interceptor-ref name="userInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="selfStack"></default-interceptor-ref>
+        <global-results>
+            <result name="fail">/WEB-INF/jsp/login.jsp</result>
+        </global-results>
+        <action name="userList" class="userAction" method="userList">
+            <result name="success">/WEB-INF/jsp/user.jsp</result>
+        </action>
+        <action name="userArtical" class="userAction" method="selectAllArtical">
+            <result name="success">/WEB-INF/jsp/userArtical.jsp</result>
+        </action>
+        <action name="userGuangbo" class="userAction" method="selectAllGuangbo">
+            <result name="success">/WEB-INF/jsp/userGuangbo.jsp</result>
+        </action>
+        <action name="toAddUser" class="userAction" method="toAddUser">
+            <result name="success">/WEB-INF/jsp/addUser.jsp</result>
+        </action>
+        <action name="addUser" class="userAction" method="addUser">
+            <result name="success" type="chain">userList</result>
+        </action>
+        <action name="selectUserId" class="userAction" method="selectUserId">
+            <result name="success">/WEB-INF/jsp/modifyUser.jsp</result>
+        </action>
+        <action name="updateUser" class="userAction" method="updateUser">
+            <result name="success" type="chain">userList</result>
+        </action>
+        <action name="delUser" class="userAction" method="delUser">
+            <result name="success" type="chain">userList</result>
+        </action>
+
+        <action name="toAddArtical" class="articalAction"
+                method="toAddArtical">
+            <result name="success">/WEB-INF/jsp/userAddArtical.jsp</result>
+        </action>
+        <action name="addArtical" class="articalAction"
+                method="addArtical">
+            <result name="success" type="chain">
+                <param name="actionName">articalList</param>
+                <param name="namespace">/artical</param>
+                <param name="method">articalList</param>
+            </result>
+        </action>
+        <action name="toAddGuangbo" class="guangboAction"
+                method="toAddGuangbo">
+            <result name="success">/WEB-INF/jsp/userAddGuangbo.jsp</result>
+        </action>
+        <action name="addGuangbo" class="guangboAction"
+                method="addGuangbo">
+            <result name="success" type="chain">
+                <param name="actionName">guangboList</param>
+                <param name="namespace">/guangbo</param>
+                <param name="method">guangboList</param>
+            </result>
+        </action>
+    </package>
+    <package name="artical" namespace="/artical" extends="struts-default">
+        <interceptors>
+            <interceptor name="userInterceptor" class="interceptor.UserInterceptor"></interceptor>
+            <interceptor-stack name="selfStack">
+                <interceptor-ref name="userInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="selfStack"></default-interceptor-ref>
+        <global-results>
+            <result name="fail">/WEB-INF/jsp/login.jsp</result>
+        </global-results>
+        <action name="articalList" class="articalAction" method="articalList">
+            <result name="success">/WEB-INF/jsp/artical.jsp</result>
+        </action>
+        <action name="toAddArtical" class="articalAction"
+                method="toAddArtical">
+            <result name="success">/WEB-INF/jsp/addArtical.jsp</result>
+        </action>
+        <action name="addArtical" class="articalAction"
+                method="addArtical">
+            <result name="success" type="chain">userArtical</result>
+        </action>
+        <action name="selectArticalId" class="articalAction"
+                method="selectArticalId">
+            <result name="success">/WEB-INF/jsp/modifyArtical.jsp</result>
+        </action>
+        <action name="updateArtical" class="articalAction"
+                method="updateArtical">
+            <result name="success" type="chain">articalList</result>
+        </action>
+        <action name="delArtical" class="articalAction"
+                method="delArtical">
+            <result name="success" type="chain">articalList</result>
+        </action>
+
+        <action name="detailAUser" class="articalAction" method="detailUser">
+            <result name="success">/WEB-INF/jsp/user.jsp</result>
+        </action>
+        <action name="detailGUser" class="guangboAction" method="detailUser">
+            <result name="success">/WEB-INF/jsp/user.jsp</result>
+        </action>
+    </package>
+
+    <package name="guangbo" namespace="/guangbo" extends="struts-default">
+        <interceptors>
+            <interceptor name="userInterceptor" class="interceptor.UserInterceptor"></interceptor>
+            <interceptor-stack name="selfStack">
+                <interceptor-ref name="userInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="selfStack"></default-interceptor-ref>
+        <global-results>
+            <result name="fail">/WEB-INF/jsp/login.jsp</result>
+        </global-results>
+        <action name="guangboList" class="guangboAction" method="guangboList">
+            <result name="success">/WEB-INF/jsp/guangbo.jsp</result>
+        </action>
+        <action name="toAddGuangbo" class="guangboAction"
+                method="toAddGuangbo">
+            <result name="success">/WEB-INF/jsp/addGuangbo.jsp</result>
+        </action>
+        <action name="addGuangbo" class="guangboAction"
+                method="addGuangbo">
+            <result name="success" type="chain">guangboList</result>
+        </action>
+        <action name="selectGuangboId" class="guangboAction"
+                method="selectGuangboId">
+            <result name="success">/WEB-INF/jsp/modifyGuangbo.jsp</result>
+        </action>
+        <action name="updateGuangbo" class="guangboAction"
+                method="updateGuangbo">
+            <result name="success" type="chain">guangboList</result>
+        </action>
+        <action name="delGuangbo" class="guangboAction"
+                method="delGuangbo">
+            <result name="success" type="chain">guangboList</result>
+        </action>
+    </package>
+
+
+</struts>
